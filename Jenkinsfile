@@ -24,9 +24,15 @@ def checkoutRepo() {
 }
 
 pipeline {
-    agent any
+    agent none
     stages {
         stage('Build') {
+            agent {
+                node {
+                    label 'build'
+                    customWorkspace "${WORKSPACE_PATH}"
+                }
+            }            
             steps {
                 checkoutRepo()
 
