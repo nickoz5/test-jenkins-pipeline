@@ -30,7 +30,6 @@ pipeline {
             agent {
                 node {
                     label 'build'
-                    customWorkspace "${WORKSPACE_PATH}"
                 }
             }            
             steps {
