@@ -54,6 +54,8 @@ pipeline {
                 echo '${env.BRANCH_NAME}'
                 echo "${env.BRANCH_NAME}"
                 echo "$BRANCH_NAME"
+                echo "$JOB_NAME"
+                echo "$GIT_BRANCH"
             }
         }
     }
