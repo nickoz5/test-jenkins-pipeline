@@ -52,6 +52,8 @@ pipeline {
             }            
             steps {
                 echo '${env.BRANCH_NAME}'
+                echo "${env.BRANCH_NAME}"
+                echo "$BRANCH_NAME"
             }
         }
     }
