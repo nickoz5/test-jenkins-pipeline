@@ -3,7 +3,8 @@ def checkoutRepo() {
         $class: 'GitSCM',
         branches: [[name: '*/master']],
         doGenerateSubmoduleConfigurations: false,
-        changelog: false, poll: false,
+        changelog: false,
+        poll: false,
         extensions:
         [
             [$class: 'CloneOption', timeout: 120],
@@ -41,6 +42,16 @@ pipeline {
                     .\\.build-support\\support\\environment.ps1
                     Invoke-Build -WorkingDirectory . -BuildFile 'WindowsFormsApp1.sln' -Targets @('Build')
 '''
+            }
+        }
+        stage('Test') {
+            agent {
+                node {
+                    label 'build'
+                }
+            }            
+            steps {
+                echo '${env.BRANCH_NAME}'
             }
         }
     }
