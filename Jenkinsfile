@@ -50,7 +50,7 @@ pipeline {
                 }
             }
             when {
-                tag "release-*" }
+                tag "release-*"
             }
             steps {
                 echo '${TAG_NAME}'
