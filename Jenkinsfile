@@ -43,5 +43,18 @@ pipeline {
 '''
             }
         }
+        stage('Deploy') {
+            agent {
+                node {
+                    label 'build'
+                }
+            }
+            when {
+                tag "release-*" }
+            }
+            steps {
+                echo '${TAG_NAME}'
+            }
+        }
     }
 }
