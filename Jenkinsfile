@@ -55,7 +55,7 @@ pipeline {
                 tag "release-*"
             }
             steps {
-                echo '${TAG_NAME}'
+                echo "${TAG_NAME}"
             }
         }
     }
