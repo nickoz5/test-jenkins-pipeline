@@ -34,6 +34,7 @@ pipeline {
                 }
             }            
             steps {
+                echo "Starting checkout...."
                 checkoutRepo()
 
                 
