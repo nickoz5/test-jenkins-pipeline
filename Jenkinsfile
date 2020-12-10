@@ -73,7 +73,7 @@ pipeline {
                     $ErrorActionPreference = 'Stop';
                     . .\\.build-support\\support\\functions.ps1
                     .\\.build-support\\support\\environment.ps1
-                    Invoke-Build -WorkingDirectory .\src -BuildFile 'WindowsFormsApp1.sln' -Targets @('Build')
+                    Invoke-Build -WorkingDirectory .\\src -BuildFile 'WindowsFormsApp1.sln' -Targets @('Build')
 '''
             }
         }
