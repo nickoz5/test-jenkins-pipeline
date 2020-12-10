@@ -33,7 +33,7 @@ def checkoutRepo() {
         extensions:
         [
             [$class: 'CleanCheckout'],
-            [$class: 'CloneOption', noTags: true, timeout: 120],
+            [$class: 'CloneOption', noTags: true, timeout: 120, shallow: true],
             [$class: 'RelativeTargetDirectory', relativeTargetDir: './src']
         ],
         submoduleCfg: [],
