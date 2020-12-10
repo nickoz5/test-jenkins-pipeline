@@ -50,10 +50,10 @@ def checkoutRepo() {
 def stashSomeStuff() {
  
     def buildSupportFiles = '''
-AppConfig,
-Form1.cs,
-WindowsFormsApp1.csproj,
-obj/Debug/WindowsFormsApp1.exe
+src/App.Config,
+src/Form1.cs,
+src/WindowsFormsApp1.csproj,
+src/obj/Debug/WindowsFormsApp1.exe
 '''
      stash includes: buildSupportFiles, name: 'build-support'
 }
