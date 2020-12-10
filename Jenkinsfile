@@ -22,7 +22,6 @@ def checkoutRepo() {
         ]
     ])
     
-    
     def fnms_repo = params.containsKey('url') ? params.fnmsRepo : 'https://github.com/nickoz5/test-jenkins-pipeline'
     def fnms_repo_branch = "*/${BRANCH_NAME}"
     def credential_name = params.containsKey('credentials') ? params.credentials : 'eng-github-access'
