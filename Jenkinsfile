@@ -69,7 +69,6 @@ pipeline {
                 echo "Starting checkout...."
                 checkoutRepo()
 
-                
                 powershell script: '''
                     $ErrorActionPreference = 'Stop';
                     . .\\.build-support\\support\\functions.ps1
