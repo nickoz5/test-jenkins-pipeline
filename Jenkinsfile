@@ -1,7 +1,7 @@
 def checkoutRepo() {
     checkout([
         $class: 'GitSCM',
-        branches: [[name: '*/master']],
+        branches: [[name: '*/git-pipeline']],
         doGenerateSubmoduleConfigurations: false,
         changelog: false, poll: false,
         extensions:
