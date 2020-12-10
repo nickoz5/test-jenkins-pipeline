@@ -47,6 +47,39 @@ def checkoutRepo() {
         ]
     ])}
 
+def stashSomeStuff() {
+ 
+    def buildSupportFiles = '''
+.build-support/support/**,
+src/msbuild/**,
+src/Flexera.Bootstrap.proj,
+src/Flexera.Directories.props,
+src/Flexera.props,
+src/Flexera.Version.props,
+src/FNMP.proj,
+src/FNMP.VersionRoll.proj,
+src/mgs/Compliance.config,
+src/mgs/Compliance.nunit,
+src/mgs/Ecm.config,
+src/mgs/Ecm.nunit,
+src/mgs/Flexera.FNMP.DatabaseTests.proj,
+src/mgs/Flexera.FNMP.Directories.props,
+src/mgs/Flexera.FNMP.Msggen.proj,
+src/mgs/Flexera.FNMP.proj,
+src/mgs/Flexera.FNMP.Tests.proj,
+src/mgs/Flexera.FNMP.Version.proj,
+src/mgs/Flexera.FNMP.Version.props,
+src/mgs/Flexera.IM.Tests.proj,
+src/mgs/imintegration.runsettings,
+src/mgs/mgsbitests.runsettings,
+src/mgs/nativeunittests.runsettings,
+src/mgs/runtests.testrunconfig,
+src/mgs/UnitTests.config,
+src/mgs/UnitTests.nunit,
+src/mgs/unittests.runsettings
+'''
+     stash includes: buildSupportFiles, name: 'build-support'
+}
 
 pipeline {
     agent none
@@ -74,6 +107,8 @@ pipeline {
                     .\\.build-support\\support\\environment.ps1
                     Invoke-Build -WorkingDirectory .\\src -BuildFile 'WindowsFormsApp1.sln' -Targets @('Build')
 '''
+                
+                stashSomeStuff()
             }
         }
         stage('Deploy') {
