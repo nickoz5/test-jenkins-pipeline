@@ -45,7 +45,16 @@ def checkoutRepo() {
                 refspec: "+refs/heads/${BRANCH_NAME}:refs/remotes/origin/${BRANCH_NAME}"
             ]
         ]
-    ])}
+    ])
+
+    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding',
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                    credentialsId: 'fnms-blobs',
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+        bat 'if not exist "archive" mkdir archive'
+        bat 'aws s3 sync archive s3://fnms-release-artifacts/sql-migrations/archive'
+    }
+}
 
 def stashSomeStuff() {
  
