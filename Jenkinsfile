@@ -60,7 +60,7 @@ def checkoutRepo() {
         ]
     ])
 
-    s3SyncFolder('fnms-blobs', 'archive-2\test', 's3://fnms-release-artifacts/sql-migrations/archive')
+    s3SyncFolder('fnms-blobs', 'archive-3\\test', 's3://fnms-release-artifacts/sql-migrations/archive')
 }
 
 def stashSomeStuff() {
