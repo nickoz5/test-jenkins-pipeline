@@ -4,7 +4,7 @@ def s3SyncFolder(credentialsId, localPath, remotePath) {
                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                     credentialsId: credentialsId,
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-        bat """
+          bat label: "Sync AWS S3 bucket ${remotePath} to ${localPath}", """
 if not exist "${localPath}" mkdir "${localPath}"
 aws s3 sync "${localPath}" "${remotePath}"
 """
@@ -60,7 +60,7 @@ def checkoutRepo() {
         ]
     ])
 
-    s3SyncFolder('fnms-blobs', "archive", "s3://fnms-release-artifacts/sql-migrations/archive")
+    s3SyncFolder('fnms-blobs', 'archive-2', 's3://fnms-release-artifacts/sql-migrations/archive')
 }
 
 def stashSomeStuff() {
