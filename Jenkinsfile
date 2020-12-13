@@ -71,27 +71,41 @@ pipeline {
     }
 
     stages {
-        stage('Light Build') {
-            agent {
-                node {
-                    label 'build'
-                }
-            }            
-            steps {
-                echo "Starting checkout...."
-                checkoutRepo()
+        parallel {
+            stage('Light Build') {
+                agent {
+                    node {
+                        label 'build'
+                    }
+                }            
+                steps {
+                    echo "Starting checkout...."
+                    checkoutRepo()
 
-                powershell script: '''
-                    $ErrorActionPreference = 'Stop';
-                    . .\\.build-support\\support\\functions.ps1
-                    .\\.build-support\\support\\environment.ps1
-                    Invoke-Build -WorkingDirectory .\\src -BuildFile 'WindowsFormsApp1.sln' -Targets @('Build')
-'''
-                 
-                 powershell script: 'write-host $Env:BUILD_ID'
-                
-                stashSomeStuff()
+                    powershell script: '''
+                        $ErrorActionPreference = 'Stop';
+                        . .\\.build-support\\support\\functions.ps1
+                        .\\.build-support\\support\\environment.ps1
+                        Invoke-Build -WorkingDirectory .\\src -BuildFile 'WindowsFormsApp1.sln' -Targets @('Build')
+    '''
+
+                     powershell script: 'write-host $Env:BUILD_ID'
+
+                    stashSomeStuff()
+                }
             }
+             stage('Full Build') {
+                agent {
+                    node {
+                        label 'build'
+                    }
+                }            
+                steps {
+                    echo "Starting checkout...."
+
+                }
+             }
+            
             post {
                 always {
                     recordIssues enabledForFailure: true, ignoreFailedBuilds: false, tools: [msBuild()]
