@@ -106,11 +106,6 @@ pipeline {
                 
                 stashSomeStuff()
             }
-            post {
-               failure {
-                  sendNotifications(currentBuild.currentResult)
-               }
-            }
         }
         stage('Deploy') {
             agent {
@@ -128,6 +123,9 @@ pipeline {
     }
             post {
                failure {
+                  sendNotifications(currentBuild.currentResult)
+               }
+               fixed {
                   sendNotifications(currentBuild.currentResult)
                }
             }
