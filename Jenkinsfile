@@ -94,6 +94,11 @@ pipeline {
 
                     stashSomeStuff()
                 }
+            post {
+                always {
+                    recordIssues enabledForFailure: true, ignoreFailedBuilds: false, tools: [msBuild()]
+                }
+            }
             }
              stage('Full Build') {
                 agent {
@@ -114,13 +119,13 @@ pipeline {
                      powershell script: 'write-host $Env:BUILD_ID'
 
                 }
-             }
-            }           
             post {
                 always {
                     recordIssues enabledForFailure: true, ignoreFailedBuilds: false, tools: [msBuild()]
                 }
             }
+             }
+            }           
         }
         stage('Deploy') {
             agent {
