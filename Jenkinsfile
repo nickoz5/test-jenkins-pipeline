@@ -121,7 +121,7 @@ pipeline {
                 }
             post {
                 always {
-                    recordIssues enabledForFailure: true, ignoreFailedBuilds: false, tools: [msBuild((id: 'full-build'))]
+                    recordIssues enabledForFailure: true, ignoreFailedBuilds: false, tools: [msBuild(id: 'full-build')]
                 }
             }
              }
