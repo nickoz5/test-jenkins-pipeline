@@ -74,8 +74,6 @@ src/obj/Debug/WindowsFormsApp1.exe
      stash includes: buildSupportFiles, name: 'build-support'
 }
 
-String[] failedJobs
-
 pipeline {
     agent none
     
