@@ -1,3 +1,4 @@
+@Library('fnms-cicd-library@master') _
 
 def s3SyncFolder(credentialsId, localPath, remotePath) {
      withCredentials([[$class: 'AmazonWebServicesCredentialsBinding',
@@ -9,24 +10,6 @@ if not exist "${localPath}" mkdir "${localPath}"
 aws s3 sync "${localPath}" "${remotePath}"
 """
     }   
-}
-
-def sendNotifications(String buildStatus = 'STARTED') {
-    // build status of null means successful
-    buildStatus = buildStatus ?: 'SUCCESS'
-
-    def subject = "[flexera/fnms] ${BRANCH_NAME}: ${BUILD_STATUS}"
-    def recipients = 'nhynes@flexera.com'
-    def bodyTemplate = ''
-
-    if (buildStatus == 'SUCCESS') {
-        bodyTemplate = 'email-fixed.template'
-    } else {
-        bodyTemplate = 'github-email-failure.template'
-    }
-
-    emailext body: libraryResource(bodyTemplate), mimeType: 'text/html', subject: subject, to: recipients
-    //, recipientProviders: [culprits()]
 }
 
 def checkoutRepo() {
