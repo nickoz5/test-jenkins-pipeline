@@ -92,6 +92,11 @@ pipeline {
                 
                 stashSomeStuff()
             }
+            post {
+                always {
+                    recordIssues ignoreFailedBuilds: false, tools: [msBuild()]
+                }
+            }
         }
         stage('Deploy') {
             agent {
