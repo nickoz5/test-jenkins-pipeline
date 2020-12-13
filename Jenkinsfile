@@ -105,12 +105,12 @@ pipeline {
                 
                 stashSomeStuff()
             }
+        }
             post {
                always {
                   sendNotifications(currentBuild.currentResult)
                }
             }
-        }
         stage('Deploy') {
             agent {
                 node {
