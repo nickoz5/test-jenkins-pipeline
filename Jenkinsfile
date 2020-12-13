@@ -86,7 +86,7 @@ pipeline {
     }
 
     stages {
-        stage('Build') {
+        stage('Light Build') {
             agent {
                 node {
                     label 'build'
