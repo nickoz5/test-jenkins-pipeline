@@ -71,6 +71,7 @@ pipeline {
     }
 
     stages {
+        stage('Build') {
         parallel {
             stage('Light Build') {
                 agent {
@@ -111,7 +112,7 @@ pipeline {
                     recordIssues enabledForFailure: true, ignoreFailedBuilds: false, tools: [msBuild()]
                 }
             }
-        }
+        }}
         stage('Deploy') {
             agent {
                 node {
