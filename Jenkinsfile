@@ -1,17 +1,5 @@
 @Library('fnms-cicd-library@master') _
 
-def s3SyncFolder(credentialsId, localPath, remotePath) {
-     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding',
-                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-                    credentialsId: credentialsId,
-                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-          bat label: "Sync AWS S3 bucket ${remotePath} to ${localPath}", script: """
-if not exist "${localPath}" mkdir "${localPath}"
-aws s3 sync "${localPath}" "${remotePath}"
-"""
-    }   
-}
-
 def checkoutRepo() {
     checkout([
         $class: 'GitSCM',
@@ -60,8 +48,6 @@ def checkoutRepo() {
             ]
         ]
     ])
-
-    s3SyncFolder('fnms-blobs', 'archive-3\\test', 's3://fnms-release-artifacts/sql-migrations/archive')
 }
 
 def stashSomeStuff() {
