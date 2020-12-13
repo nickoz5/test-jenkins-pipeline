@@ -96,7 +96,7 @@ pipeline {
                 }
             post {
                 always {
-                    recordIssues enabledForFailure: true, ignoreFailedBuilds: false, tools: [msBuild()]
+                    recordIssues enabledForFailure: true, ignoreFailedBuilds: false, tools: [msBuild(id: 'light-build')]
                 }
             }
             }
@@ -121,7 +121,7 @@ pipeline {
                 }
             post {
                 always {
-                    recordIssues enabledForFailure: true, ignoreFailedBuilds: false, tools: [msBuild()]
+                    recordIssues enabledForFailure: true, ignoreFailedBuilds: false, tools: [msBuild((id: 'full-build'))]
                 }
             }
              }
