@@ -144,7 +144,7 @@ pipeline {
                     .\\.build-support\\support\\environment.ps1
                         & nuget.exe restore src
                     Invoke-Build -WorkingDirectory .\\src -BuildFile 'WindowsFormsApp1.sln' -Targets @('Build')
-                    mstest /testcontainer:U.\\src\\nitTestProject1\\bin\\Debug\\UnitTestProject1.dll /resultsfile:tests.trx
+                    mstest /testcontainer:.\\src\\nitTestProject1\\bin\\Debug\\UnitTestProject1.dll /resultsfile:tests.trx
 '''
             }
             post {
