@@ -87,6 +87,7 @@ pipeline {
                         $ErrorActionPreference = 'Stop';
                         . .\\.build-support\\support\\functions.ps1
                         .\\.build-support\\support\\environment.ps1
+                        nuget restore
                         Invoke-Build -WorkingDirectory .\\src -BuildFile 'WindowsFormsApp1.sln' -Targets @('Build')
     '''
 
@@ -113,6 +114,7 @@ pipeline {
                         $ErrorActionPreference = 'Stop';
                         . .\\.build-support\\support\\functions.ps1
                         .\\.build-support\\support\\environment.ps1
+                        nuget restore
                         Invoke-Build -WorkingDirectory .\\src -BuildFile 'WindowsFormsApp1.sln' -Targets @('Build')
     '''
 
@@ -140,6 +142,7 @@ pipeline {
                     $ErrorActionPreference = 'Stop';
                     . .\\.build-support\\support\\functions.ps1
                     .\\.build-support\\support\\environment.ps1
+                        nuget restore
                     Invoke-Build -WorkingDirectory .\\src -BuildFile 'WindowsFormsApp1.sln' -Targets @('Build')
                     mstest /testcontainer:U.\\src\\nitTestProject1\\bin\\Debug\\UnitTestProject1.dll /resultsfile:tests.trx
 '''
