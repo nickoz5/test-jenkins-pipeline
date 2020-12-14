@@ -1,2 +1,9 @@
 /.vs
 /obj
+/bin/Debug
+/packages/MSTest.TestAdapter.2.1.1/build
+/packages/MSTest.TestAdapter.2.1.1
+/packages/MSTest.TestFramework.2.1.1/lib
+/packages/MSTest.TestFramework.2.1.1
+/UnitTestProject1/bin/Debug
+/UnitTestProject1/obj/Debug
