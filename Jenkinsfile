@@ -116,6 +116,7 @@ pipeline {
                         .\\.build-support\\support\\environment.ps1
                         & nuget.exe restore src
                         Invoke-Build -WorkingDirectory .\\src -BuildFile 'WindowsFormsApp1.sln' -Targets @('Build')
+                        write-error 'fail'
     '''
 
                      powershell script: 'write-host $Env:BUILD_ID'
