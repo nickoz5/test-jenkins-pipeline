@@ -169,6 +169,12 @@ pipeline {
     }
             post {
                failure {
+
+                    script {
+                        def failedStages = fnms.getFailedStages( currentBuild )
+                        echo "Failed stages:\n" + failedStages.join('\n')                        
+                    }
+                   
                   sendNotifications(currentBuild.currentResult)
                }
                fixed {
