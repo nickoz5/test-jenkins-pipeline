@@ -119,13 +119,36 @@ pipeline {
                      powershell script: 'write-host $Env:BUILD_ID'
 
                 }
-            post {
-                always {
-                    recordIssues enabledForFailure: true, ignoreFailedBuilds: false, tools: [msBuild(id: 'full-build')]
+                post {
+                    always {
+                        recordIssues enabledForFailure: true, ignoreFailedBuilds: false, tools: [msBuild(id: 'full-build')]
+                    }
                 }
-            }
              }
             }           
+        }
+        stage ('Unit Test') {
+            agent {
+                node {
+                    label 'build'
+                }
+            }
+            steps {
+                checkoutRepo()
+
+                powershell script: '''
+                    $ErrorActionPreference = 'Stop';
+                    . .\\.build-support\\support\\functions.ps1
+                    .\\.build-support\\support\\environment.ps1
+                    Invoke-Build -WorkingDirectory .\\src -BuildFile 'WindowsFormsApp1.sln' -Targets @('Build')
+                    mstest /testcontainer:U.\\src\\nitTestProject1\\bin\\Debug\\UnitTestProject1.dll /resultsfile:tests.trx
+'''
+            }
+            post {
+                always {
+                     mstest testResultsFile: '*.trx'
+                }
+            }
         }
         stage('Deploy') {
             agent {
