@@ -27,7 +27,8 @@ def changedResources() {
     for (changeLogSet in currentBuild.changeSets) { 
         for (entry in changeLogSet.getItems()) { // for each commit in the detected changes
             for (file in entry.getAffectedFiles()) {
-                transFiles << file.getPath()
+                if (file.path ==~ /.*resx/)
+                    transFiles << file.getPath()
             }
         }
     }
@@ -117,20 +118,28 @@ pipeline
                 checkoutRepo()
 
                 stashSomeStuff()
-
-                script {
-                    List<String> transFiles = changedResources()
-
-                    transFiles.each {
-                        echo "found match:  ${it}"
-                    }
-
-                    writeFile file: 'changedfiles.txt', text: transFiles.join('\n')
-                }
             }
             post {
                 always {
                     recordIssues enabledForFailure: true, ignoreFailedBuilds: false, tools: [msBuild(id: 'light-build')]
+                }
+            }
+        }
+        stage('Scan l10n') {
+            agent {
+                node {
+                    label 'build'
+                }
+            }
+            steps {
+                script {
+                    List<String> transFiles = changedResources()
+                    if (transFiles.size() == 0) {
+                        echo "No changes detected, skipping scan..."
+                    } else {
+                        writeFile file: 'changedfiles.txt', text: transFiles.join('\n')
+                        // start scan
+                    }
                 }
             }
         }
