@@ -1,5 +1,6 @@
 @Library('fnms-cicd-library@master') _
 
+@NoCPS
 def checkFiles() {
     def changeLogSets = currentBuild.changeSets
     for (int i = 0; i < changeLogSets.size(); i++) {
