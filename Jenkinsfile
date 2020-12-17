@@ -107,7 +107,7 @@ pipeline
 
                 script {
                     def transFiles = changedResources()
-                    transfiles.each {
+                    transFiles.each {
                         echo "found match:  ${it}"
                     }
                 }
