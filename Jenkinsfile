@@ -1,7 +1,7 @@
 @Library('fnms-cicd-library@master') _
 
 @NonCPS
-List<String> changedResources() {
+def changedResources() {
     List<String> transFiles = []
 
     def changeLogSets = currentBuild.changeSets
@@ -14,7 +14,7 @@ List<String> changedResources() {
             for (int k = 0; k < files.size(); k++) {
                 def file = files[k]
                 if (file.path ==~ /.*resx/)
-                    transFiles << file.path << '\n'
+                    transFiles << file.path
             }
         }
     }
@@ -106,7 +106,8 @@ pipeline
                 stashSomeStuff()
 
                 script {
-                    def transFiles = changedResources()
+                    List<String> transFiles = changedResources()
+
                     transFiles.each {
                         echo "found match:  ${it}"
                     }
