@@ -111,7 +111,7 @@ pipeline
                         echo "found match:  ${it}"
                     }
 
-                    writeFile file: 'changedfiles.txt', text: transFiles
+                    writeFile file: 'changedfiles.txt', text: transFiles.join('\n')
                 }
             }
             post {
