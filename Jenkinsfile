@@ -1,7 +1,9 @@
 @Library('fnms-cicd-library@master') _
 
 @NonCPS
-def checkFiles() {
+List<String> changedResources() {
+    List<String> transFiles = []
+
     def changeLogSets = currentBuild.changeSets
     for (int i = 0; i < changeLogSets.size(); i++) {
         def entries = changeLogSets[i].items
@@ -11,10 +13,13 @@ def checkFiles() {
             def files = new ArrayList(entry.affectedFiles)
             for (int k = 0; k < files.size(); k++) {
                 def file = files[k]
-                echo "  ${file.editType.name} ${file.path}"
+                if (file.path ==~ /.*resx/)
+                    transFiles << file.path
             }
         }
     }
+
+    return transFiles
 }
 
 def checkoutRepo() {
@@ -100,7 +105,12 @@ pipeline
 
                 stashSomeStuff()
 
-                checkFiles()
+                script {
+                    def transFiles = changedResources()
+                    transfiles.each {
+                        echo "found match:  ${it}"
+                    }
+                }
             }
             post {
                 always {
