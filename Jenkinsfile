@@ -14,7 +14,7 @@ List<String> changedResources() {
             for (int k = 0; k < files.size(); k++) {
                 def file = files[k]
                 if (file.path ==~ /.*resx/)
-                    transFiles << file.path
+                    transFiles << file.path << '\n'
             }
         }
     }
@@ -110,13 +110,15 @@ pipeline
                     transFiles.each {
                         echo "found match:  ${it}"
                     }
+
+                    writeFile file: 'changedfiles.txt', text: transFiles
                 }
             }
             post {
                 always {
                     recordIssues enabledForFailure: true, ignoreFailedBuilds: false, tools: [msBuild(id: 'light-build')]
                 }
-            }        
+            }
         }
     }
 }
