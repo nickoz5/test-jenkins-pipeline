@@ -27,6 +27,7 @@ def changedResources() {
     for (changeLogSet in currentBuild.changeSets) { 
         for (entry in changeLogSet.getItems()) { // for each commit in the detected changes
             for (file in entry.getAffectedFiles()) {
+                echo "Found change: ${file.path}"
                 if (file.path ==~ /.*resx/)
                     transFiles << file.getPath()
             }
