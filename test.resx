@@ -127,6 +127,6 @@
     <value>Unmanaged Devices</value>
   </data>
   <data name="UnassignedDevicesDescription" xml:space="preserve">
-    <value>Direct collection of inventory from these devices is not possible because they are not in assigned subnets.</value>
+    <value>Direct collection of inventory from these devices is not possible because they are not in assigned subnets 111.</value>
   </data>
 </root>
