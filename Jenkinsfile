@@ -76,7 +76,7 @@ pipeline {
                 stage('Light Build') {
                 agent {
                     node {
-                        label 'build'
+                        label 'chebuild'
                     }
                 }            
                 steps {
@@ -103,7 +103,7 @@ pipeline {
              stage('Full Build') {
                 agent {
                     node {
-                        label 'build'
+                        label 'chebuild'
                     }
                 }            
                 steps {
@@ -131,7 +131,7 @@ pipeline {
         stage ('Unit Test') {
             agent {
                 node {
-                    label 'build'
+                    label 'chebuild'
                 }
             }
             steps {
@@ -155,7 +155,7 @@ pipeline {
         stage('Deploy') {
             agent {
                 node {
-                    label 'build'
+                    label 'chebuild'
                 }
             }
             when {
