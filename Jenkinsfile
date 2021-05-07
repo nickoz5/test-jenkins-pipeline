@@ -113,7 +113,6 @@ pipeline {
                         $ErrorActionPreference = 'Stop';
                         . .\\.build-support\\support\\functions.ps1
                         .\\.build-support\\support\\environment.ps1
-                        & nuget.exe restore src
                         Invoke-Build -WorkingDirectory .\\src -BuildFile 'WindowsFormsApp1.sln' -Targets @('Build')
     '''
 
