@@ -137,13 +137,17 @@ pipeline {
             steps {
                 checkoutRepo()
 
-                powershell script: '''
+                def result = powershell returnStatus: true, script: '''
                     . .\\.build-support\\support\\functions.ps1
                     .\\.build-support\\support\\environment.ps1
                         & nuget.exe restore src
                     Invoke-Build -WorkingDirectory .\\src -BuildFile 'WindowsFormsApp1.sln' -Targets @('Build')
+                    del tests.trx
                     mstest /testcontainer:.\\src\\UnitTestProject1\\bin\\Debug\\UnitTestProject1.dll /resultsfile:tests.trx
 '''
+                if ($result <> 0) {
+                    unstable 'Tests failed'
+                }
             }
             post {
                 always {
