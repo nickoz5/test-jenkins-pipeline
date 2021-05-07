@@ -137,6 +137,7 @@ pipeline {
             steps {
                 checkoutRepo()
 
+                script {
                 def result = powershell returnStatus: true, script: '''
                     . .\\.build-support\\support\\functions.ps1
                     .\\.build-support\\support\\environment.ps1
@@ -145,7 +146,6 @@ pipeline {
                     del tests.trx
                     mstest /testcontainer:.\\src\\UnitTestProject1\\bin\\Debug\\UnitTestProject1.dll /resultsfile:tests.trx
 '''
-                script {
                     if ($result != 0) {
                         unstable 'Tests failed'
                     }
