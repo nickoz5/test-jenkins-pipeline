@@ -83,12 +83,16 @@ pipeline {
                     echo "Starting checkout...."
                     checkoutRepo()
 
+                    try {
                     powershell script: '''
                         $ErrorActionPreference = 'Stop';
                         . .\\.build-support\\support\\functions.ps1
                         .\\.build-support\\support\\environment.ps1
                         Invoke-Build -WorkingDirectory .\\src -BuildFile 'WindowsFormsApp1.sln' -Targets @('Build')
     '''
+                    } catch(err) {
+                        currentBuild.result = 'UNSTABLE'
+                    }
 
                      powershell script: 'write-host $Env:BUILD_ID'
 
