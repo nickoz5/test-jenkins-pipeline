@@ -138,7 +138,7 @@ pipeline {
                 checkoutRepo()
 
                 script {
-                def result = powershell returnStatus: true, script: '''
+                def ret = powershell returnStatus: true, script: '''
                     . .\\.build-support\\support\\functions.ps1
                     .\\.build-support\\support\\environment.ps1
                         & nuget.exe restore src
@@ -146,7 +146,7 @@ pipeline {
                     del tests.trx
                     mstest /testcontainer:.\\src\\UnitTestProject1\\bin\\Debug\\UnitTestProject1.dll /resultsfile:tests.trx
 '''
-                    if ($result != 0) {
+                    if (ret != 0) {
                         unstable 'Tests failed'
                     }
                 }
