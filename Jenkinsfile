@@ -92,7 +92,7 @@ pipeline {
                      powershell script: 'write-host $Env:BUILD_ID'
                     
                     stashSomeStuff()
-                    currentBuild.result='UNSTABLE'
+                    unstable 'test@!'
                 }
             post {
                 always {
