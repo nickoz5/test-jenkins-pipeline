@@ -93,7 +93,7 @@ pipeline {
             '''
                         } catch(err) {
                             print "Error occurred - testing!"
-                            currentBuild.result = 'UNSTABLE'
+                            exit 1
                         }
                     }
 
