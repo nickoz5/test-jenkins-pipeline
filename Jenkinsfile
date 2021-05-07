@@ -145,8 +145,10 @@ pipeline {
                     del tests.trx
                     mstest /testcontainer:.\\src\\UnitTestProject1\\bin\\Debug\\UnitTestProject1.dll /resultsfile:tests.trx
 '''
-                if ($result != 0) {
-                    unstable 'Tests failed'
+                script {
+                    if ($result != 0) {
+                        unstable 'Tests failed'
+                    }
                 }
             }
             post {
