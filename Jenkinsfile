@@ -83,19 +83,11 @@ pipeline {
                     echo "Starting checkout...."
                     checkoutRepo()
 
-                    script {
-                        try {
-                            powershell script: '''
-                                $ErrorActionPreference = 'Stop';
-                                . .\\.build-support\\support\\functions.ps1
-                                .\\.build-support\\support\\environment.ps1
-                                Invoke-Build -WorkingDirectory .\\src -BuildFile 'WindowsFormsApp1.sln' -Targets @('Build')
-            '''
-                        } catch(err) {
-                            print "Error occurred - testing!"
-                            exit 2
-                        }
-                    }
+                    powershell script: '''
+                        . .\\.build-support\\support\\functions.ps1
+                        .\\.build-support\\support\\environment.ps1
+                        Invoke-Build -WorkingDirectory .\\src -BuildFile 'WindowsFormsApp1.sln' -Targets @('Build')
+    '''
 
                      powershell script: 'write-host $Env:BUILD_ID'
 
