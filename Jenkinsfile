@@ -92,6 +92,7 @@ pipeline {
                                 Invoke-Build -WorkingDirectory .\\src -BuildFile 'WindowsFormsApp1.sln' -Targets @('Build')
             '''
                         } catch(err) {
+                            print "Error occurred - testing!"
                             currentBuild.result = 'UNSTABLE'
                         }
                     }
