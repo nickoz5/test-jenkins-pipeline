@@ -93,7 +93,7 @@ pipeline {
             '''
                         } catch(err) {
                             print "Error occurred - testing!"
-                            exit 1
+                            exit 2
                         }
                     }
 
