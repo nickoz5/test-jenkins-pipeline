@@ -139,10 +139,11 @@ pipeline {
 
                 script {
                 def ret = powershell returnStatus: true, script: '''
+                        $ErrorActionPreference = 'Stop';
                     . .\\.build-support\\support\\functions.ps1
                     .\\.build-support\\support\\environment.ps1
                         & nuget.exe restore src
-                    Invoke-Build -WorkingDirectory .\\src -BuildFile 'WindowsFormsApp1.sln' -Targets @('Build')
+                    Invoke-Build -WorkingDirectory .\\src -BuildFile 'WindowsFormspp1.sln' -Targets @('Build')
                     del tests.trx
                     mstest /testcontainer:.\\src\\UnitTestProject1\\bin\\Debug\\UnitTestProject1.dll /resultsfile:tests.trx
 '''
