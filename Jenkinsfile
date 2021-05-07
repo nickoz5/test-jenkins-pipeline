@@ -138,7 +138,6 @@ pipeline {
                 checkoutRepo()
 
                 powershell script: '''
-                    $ErrorActionPreference = 'Stop';
                     . .\\.build-support\\support\\functions.ps1
                     .\\.build-support\\support\\environment.ps1
                         & nuget.exe restore src
