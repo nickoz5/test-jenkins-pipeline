@@ -52,7 +52,7 @@ pipeline {
                 stage('stage 1') {
                     agent any
                     steps {
-                        echo 'Test stage'
+                        echo 'Test stage: ${TAG_NAME}'
                     }
                 }
                 stage('stage 2') {
