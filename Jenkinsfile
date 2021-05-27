@@ -45,14 +45,34 @@ pipeline {
 '''
             }
         }
+
+        stage('DB Migration Tests') {
+            when { not { buildingTag() } }
+            parallel {
+                stage('stage 1') {
+                    agent any
+                    steps {
+                        echo 'Test stage'
+                    }
+                }
+                stage('stage 2') {
+                    agent any
+                    steps {
+                        echo 'Test stage'
+                    }
+                }
+            }
+        }
+        
         stage('Deploy') {
+            when {
+                buildingTag()
+                beforeAgent true
+            }
             agent {
                 node {
                     label 'build'
                 }
-            }
-            when {
-                tag "release-*"
             }
             steps {
                 echo "${TAG_NAME}"
