@@ -47,7 +47,7 @@ pipeline {
         }
 
         stage('DB Migration Tests') {
-            when { tag 'release-*' }
+            when { not { buildingTag() } }
             parallel {
                 stage('stage 1') {
                     agent any
